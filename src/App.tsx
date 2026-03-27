@@ -95,12 +95,6 @@ const Navbar = () => {
               {item.label}
             </a>
           ))}
-          <button 
-            onClick={() => toast.success('Joining sequence initiated!')}
-            className="bg-[#0F3D3E] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#2E8B57] transition-all transform hover:scale-105 shadow-md"
-          >
-            Join Network
-          </button>
         </div>
 
         {/* Mobile Toggle */}
@@ -150,61 +144,67 @@ const Navbar = () => {
 };
 
 const Hero = () => {
+  const scrollToContact = () => {
+    const element = document.querySelector('#contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           src={IMAGES.hero} 
           alt="Modern Pharmacy" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover brightness-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#072B2B]/70 via-[#0F3D3E]/50 to-[#2E8B57]/20" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl backdrop-blur-sm bg-white/20 rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-12 bg-[#2E8B57]"></span>
-              <span className="text-[#2E8B57] font-bold tracking-widest uppercase text-sm">
+              <span className="h-px w-16 bg-[#7ED957] animate-pulse"></span>
+              <span className="text-[#7ED957] font-black tracking-widest uppercase text-sm">
                 Next-Gen Healthcare Logistics
               </span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-black text-[#0F3D3E] leading-[1] mb-8">
-              F2F – Ethiopia's First <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0F3D3E] to-[#2E8B57]">AI-Powered</span> <br/>
+            <h1 className="text-5xl md:text-7xl font-black text-white leading-tight mb-8 drop-shadow-lg">
+              F2F – Ethiopia's First <br />
+              <span className="bg-gradient-to-r from-[#7ED957] via-[#2E8B57] to-[#34D399] bg-clip-text text-transparent">AI-Powered</span> <br />
               Pharmacy Network
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed max-w-2xl font-medium">
-              Connecting pharmacies to optimize supply, predict demand, and improve patient care nationwide.
+            <p className="text-lg md:text-xl text-white/90 mb-12 leading-relaxed max-w-2xl font-medium">
+              Connect pharmacies with real-time inventory signals, demand forecasting, and seamless logistics to keep communities healthy.
             </p>
-            <div className="flex flex-col sm:flex-row gap-5">
-              <button 
-                onClick={() => toast.info('Booking a consultation...')}
-                className="bg-[#0F3D3E] text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-[#2E8B57] transition-all flex items-center justify-center gap-3 group shadow-xl hover:-translate-y-1"
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={scrollToContact}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2E8B57] px-10 py-4 text-lg font-bold text-white shadow-xl transition hover:scale-105 hover:bg-[#7ED957]"
               >
                 Get in Touch
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="bg-white text-[#0F3D3E] border-2 border-[#0F3D3E]/10 px-10 py-5 rounded-2xl font-bold text-xl hover:border-[#2E8B57] transition-all flex items-center justify-center gap-3 shadow-lg hover:-translate-y-1">
-                Join Our Network
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
-            
-            <div className="mt-16 flex items-center gap-8 opacity-60">
-              <div className="flex flex-col">
-                <span className="text-3xl font-bold text-[#0F3D3E]">500+</span>
-                <span className="text-xs font-bold uppercase tracking-widest">Pharmacies</span>
-              </div>
-              <div className="h-10 w-px bg-gray-300"></div>
-              <div className="flex flex-col">
-                <span className="text-3xl font-bold text-[#0F3D3E]">1M+</span>
-                <span className="text-xs font-bold uppercase tracking-widest">Patients</span>
-              </div>
+
+            <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 font-bold text-white">
+              {[
+                { title: 'Pharmacies', value: '500+' },
+                { title: 'Patients', value: '1M+' },
+                { title: 'Accuracy', value: '98%' },
+                { title: 'Regions', value: '11' },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl bg-white/10 p-4 text-center backdrop-blur-sm border border-white/20">
+                  <div className="text-3xl text-[#7ED957]">{item.value}</div>
+                  <div className="text-xs uppercase tracking-wider text-white/80">{item.title}</div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -571,8 +571,8 @@ const Vision = () => {
 const Investors = () => {
   const stats: Stat[] = [
     { label: "Partner Pharmacies", value: "500", prefix: "+" },
-    { label: "Patients Served", value: "1", prefix: "M+" },
-    { label: "Predictive AI Accuracy", value: "98", prefix: "%" },
+    { label: "Patients Served", value: "1M+", prefix: "" },
+    { label: "Predictive AI Accuracy", value: "98%", prefix: "" },
     { label: "Regions Covered", value: "11", prefix: "" },
   ];
 
@@ -605,12 +605,6 @@ const Investors = () => {
                 ))}
               </div>
 
-              <button 
-                onClick={() => toast.success('Pitch deck request sent!')}
-                className="bg-[#0F3D3E] text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-[#2E8B57] transition-all shadow-2xl hover:-translate-y-1"
-              >
-                Request Pitch Deck
-              </button>
             </div>
 
             <motion.div
@@ -669,9 +663,9 @@ const Contact = () => {
 
             <div className="space-y-10">
               {[
-                { icon: Phone, label: "Call Us", value: "+251 116 XXX XXX" },
-                { icon: Mail, label: "Email", value: "hello@f2f-ethiopia.com" },
-                { icon: Globe, label: "Headquarters", value: "Bole, Addis Ababa, Ethiopia" }
+                { icon: Phone, label: "Call Us", value: "+251 94 130 2922" },
+                { icon: Mail, label: "Email", value: "selomewondimneh@gmail.com" },
+                { icon: Globe, label: "Headquarters", value: "Arada, Addis Ababa, Ethiopia" }
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-8 group">
                   <div className="w-16 h-16 rounded-2xl bg-[#F7FAF9] flex items-center justify-center text-[#2E8B57] group-hover:bg-[#0F3D3E] group-hover:text-white transition-all duration-300 shadow-sm">
@@ -763,13 +757,6 @@ const Footer = () => {
             <p className="text-white/60 text-xl max-w-md mb-10 leading-relaxed font-medium">
               Ethiopia's pioneer AI-powered pharmacy network. Redefining medical supply chains for a healthier future.
             </p>
-            <div className="flex gap-5">
-              {['Twitter', 'LinkedIn', 'Facebook', 'Instagram'].map((social) => (
-                <div key={social} className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#7ED957] hover:text-[#0F3D3E] transition-all cursor-pointer group shadow-inner">
-                  <Globe className="w-6 h-6" />
-                </div>
-              ))}
-            </div>
           </div>
           
           <div>
@@ -783,29 +770,10 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-xl font-bold mb-10 text-[#7ED957]">Stay Connected</h4>
-            <p className="text-white/50 mb-6 font-medium">Get the latest updates on healthcare innovation in Ethiopia.</p>
-            <div className="flex gap-2">
-              <input 
-                type="email" 
-                placeholder="Email" 
-                className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none w-full"
-              />
-              <button className="bg-[#2E8B57] p-3 rounded-xl hover:bg-[#7ED957] hover:text-[#0F3D3E] transition-all">
-                <ArrowRight />
-              </button>
-            </div>
-          </div>
         </div>
         
         <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-white/30 text-sm font-bold uppercase tracking-widest">
           <p>© {new Date().getFullYear()} F2F PHARMACY NETWORK. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-10">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Cookies</a>
-          </div>
         </div>
       </div>
     </footer>
